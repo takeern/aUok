@@ -3,11 +3,11 @@
 modul        |  description  |
 :----------- | :-----------: |
 [init](#init)             |初始化应用       | 
-input        |五子棋输入模块   |
-updateCav    |将输入展示到canvas|
-checkOk      |判断胜利        |
-thunder      |电脑算法        |
-goBack       |悔棋            |
+[input](#inpuy)        |五子棋输入模块   |
+[updateCav](#updatecav)    |将输入展示到canvas|
+[checkOk](#checkOk)      |判断胜利        |
+[thunder](#thunder)      |电脑算法        |
+[goBack](#goBack)       |悔棋            |
 
 ### version 2.0
 modul        |  description  |
