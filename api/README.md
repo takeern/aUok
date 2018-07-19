@@ -2,7 +2,7 @@
 ### version 1.0
 modul        |  description  |
 :----------- | :-----------: |
-init         |初始化应用       | 
+[init](#init)             |初始化应用       | 
 input        |五子棋输入模块   |
 updateCav    |将输入展示到canvas|
 checkOk      |判断胜利        |
