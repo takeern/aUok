@@ -15,6 +15,7 @@
   "author": "dake",
   "license": "ISC",
   "dependencies": {
+    "debug": "^3.1.0",
     "webpack": "^4.16.1"
   },
   "devDependencies": {
