@@ -1,4 +1,6 @@
 const debug = require('debug')('ok:init')
+import showPiess from './showPiessPosition'
+import showPiessPosition from './showPiess\bPosition'
 // input
 // @x {int}
 // @y {int}
@@ -12,7 +14,7 @@ const debug = require('debug')('ok:init')
 
 // @beginPath {int}
 // @distance {int}
-export default (x = 15, person = 1, thunderLev = 1) => { 
+export default (x = 15, person = 'person', thunderLev = 1) => { 
   const canvas = document.querySelector('canvas')
   if(!canvas) return debug ('canvas is undefined') 
   x = parseInt(x)
@@ -23,26 +25,27 @@ export default (x = 15, person = 1, thunderLev = 1) => {
   //debug('show', beginPath)
   const ctx = canvas.getContext('2d')
   const chessFactor = 2
-  const pieceLocation = [ ~~(x/chessFactor)+1, ~~(x/chessFactor)+1 ]
+  const pieceLocation = [ ~~(x/chessFactor), ~~(x/chessFactor) ]
   const nowChessMan = 'person'
   let chessArr = []
   const { width, height } = canvas
   // chessArr.concat([ 0, 0, 0, 0 ])
   for(let i = 0; i < x; i++) chessArr.push(new Array(x).fill(0))
+  ctx.fillStyle = 'rgb(213,176,146)'
   ctx.fillRect(0, 0, width, height)
   for(let i = 0; i < x; i++) {
     ctx.beginPath()
-    ctx.strokeStyle = 'white'
+    ctx.strokeStyle = 'black'
     ctx.moveTo(beginPath + i * distance, beginPath)
     ctx.lineTo(beginPath + i * distance, height-beginPath)
     ctx.stroke()
     ctx.beginPath()
-    ctx.strokeStyle = 'white'
+    ctx.strokeStyle = 'black'
     ctx.moveTo(beginPath, beginPath + i * distance)
     ctx.lineTo(height-beginPath, beginPath + i * distance)
     ctx.stroke()
   }
-
+  showPiessPosition({ ctx, pieceLocation, beginPath, distance, chessArr, nowChessMan }, 'init')
   debug ('init return value', ctx, pieceLocation, chessArr, nowChessMan)
   return { ctx, pieceLocation, chessArr, nowChessMan, beginPath, distance }
 }
