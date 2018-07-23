@@ -8,39 +8,50 @@ const debug = require('debug')('ok:index')
 // @nowChessMan {string}
 // @beginPath {int}
 // @distance {int}
-const { ctx, pieceLocation, chessArr, nowChessMan, beginPath, distance } = init()
+let { ctx, pieceLocation, chessArr, nowChessMan, beginPath, distance } = init()
+
 //  存储走的路径
 const historyPath = []
-
+debug(pieceLocation)
 const keyPress = (e) => {
   const keyCode = e.which
+  debug('show keycode', keyCode)
+  let [ ...newPieceLocation ] = pieceLocation
+  let command = 'move'
   switch(keyCode) {
-  case('37'): {
-      //todo 触发向左
-      return null
+  case(37): {
+    //todo 触发向左
+    newPieceLocation[0] -= 1
+    break
   }
-  case('38'): {
-    //todo 触发向上
-    return null
+  case(38): {
+    newPieceLocation[1] -= 1
+    break
   }
-  case('39'): {
-    //todo 触发向右
-    return null
+  case(39): {
+    newPieceLocation[0] += 1
+    break
   }
-  case('40'): {
-    //todo 触发想下
-    return null
+  case(40): {
+    newPieceLocation[1] += 1
+    break
   }
-  case('13'): {
-    //todo 触发enter
-    return null
+  case(13): {
+    command = 'input'
+    break
   }
   default:return null
   }
+  pieceLocation = showPiess ({ ctx, pieceLocation, newPieceLocation, beginPath, distance, chessArr, nowChessMan }, 'move') 
+  return null
 }
 
-document.onkeydown = keyPress
+document.onkeydown = (e) => {
+  // debug(nowChessMan)/ debug(nowChessMan)
+  if(nowChessMan !== 'person') return
+  keyPress(e)
+}
 
 
-showPiess({ ctx, pieceLocation, beginPath, distance, chessArr }, 'red')
+
 
