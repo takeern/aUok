@@ -81,7 +81,6 @@ export default ({ ctx, pieceLocation, newPieceLocation, beginPath, distance, che
 
   //确定下棋
   if(command === 'input') {
-    debug('draw')
     color = nowChessMan === 'person'? 'white' : 'black'
     const xy = xyToCav(pieceLocation, beginPath, distance)
     drawArc (xy[0], xy[1], distance, ctx, color)
