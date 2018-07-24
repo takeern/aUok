@@ -55,7 +55,7 @@ const getBorder = (chessArr) => {
 }
 
 //遍历每个位置获取分数图
-const thunder = (x, y, chessArr) => {
+const getScoreMap = (x, y, chessArr) => {
   let checkDirectionForBlack = 8
   let checkDirectionForWhite = 8
   const whiteCode = 1
@@ -174,7 +174,7 @@ export default (chessArr) => {
   for(let y = top; y <= bottom; y++) {
     for(let x = left; x <= right; x++) {
       if(chessArr[y][x] === 0) {
-        let fraction = thunder(x, y, chessArr)
+        let fraction = getScoreMap(x, y, chessArr)
         // debug(fraction, x, y, '该位置下分数')
         // max = max < fraction ? fraction : max
         if(max < fraction) {

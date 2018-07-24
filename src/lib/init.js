@@ -12,7 +12,7 @@ import showPiessPosition from './showPiessPosition'
 
 // @beginPath {int}
 // @distance {int}
-export default (x = '15', personNum = 2) => { 
+export default (x = '15', personNum = 1) => { 
   const canvas = document.querySelector('canvas')
   if(!canvas) return debug ('canvas is undefined') 
   x = parseInt(x)

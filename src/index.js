@@ -16,6 +16,19 @@ let { ctx, pieceLocation, chessArr, nowChessMan, beginPath, distance, personNum 
 const historyPath = []
 const histortPath1 = []
 
+const onWin = () => {
+  let palyer
+  if(personNum === 1) {
+    palyer = nowChessMan === 'person' ? 'thunder' : '玩家'
+  }else{
+    palyer = nowChessMan === 'person' ? '玩家2' : '玩家1'
+  }
+  const winText = `${ palyer }获胜`
+  alert(winText)
+  //重置应用
+  //need change
+  ;({ ctx, pieceLocation, chessArr, nowChessMan, beginPath, distance, personNum } = init())
+}
 
 const keyPress = (e) => {
   const keyCode = e.which
@@ -49,10 +62,12 @@ const keyPress = (e) => {
     pro.then(() => {
       let key
       if(personNum === 1) {
+        //确认输入 同步到参数
         chessArr[pieceLocation[1]][pieceLocation[0]] = nowChessMan === 'person'? 1 : 2
         historyPath.push(pieceLocation)
         key = checkOk(pieceLocation, chessArr)
         nowChessMan = nowChessMan === 'person'? 'thunder': 'person'
+        if(key) onWin()
       }else{
         chessArr[pieceLocation[1]][pieceLocation[0]] = nowChessMan === 'person'? 1 : 2
         if(nowChessMan === 'person') {
@@ -62,22 +77,23 @@ const keyPress = (e) => {
         }
         key = checkOk(pieceLocation, chessArr)
         nowChessMan = nowChessMan === 'person'? 'otherPerson': 'person'
+        if(key) onWin()
       }
-      const { x, y } = thunder(chessArr)
-      debug(x, y, 'shwo x y')
-      //  如果胜利
-      if(key) {
-        let palyer
-        if(personNum === 1){
-          palyer = nowChessMan === 'person' ? 'thunder' : '玩家'
-        }else{
-          palyer = nowChessMan === 'person' ? '玩家2' : '玩家1'
-        }
-        const winText = `${ palyer }获胜`
-        alert(winText)
-        //重置应用
-        //need change
-        ;({ ctx, pieceLocation, chessArr, nowChessMan, beginPath, distance, personNum } = init())
+    
+      //如果电脑对战
+      if(personNum === 1 && nowChessMan === 'thunder') {
+        const { x, y } = thunder(chessArr)
+        pieceLocation = [ x, y ]
+        const pro = new Promise((resolve) => {
+          pieceLocation = showPiess ({ ctx, pieceLocation, newPieceLocation, beginPath, distance, chessArr, nowChessMan }, command) 
+          resolve()
+        })
+        pro.then(() => {
+          chessArr[pieceLocation[1]][pieceLocation[0]] = 2
+          key = checkOk(pieceLocation, chessArr)
+          nowChessMan = 'person'
+          if(key) onWin()
+        })
       }
     })
     break

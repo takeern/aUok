@@ -61,7 +61,6 @@ export const checkOne = (actionCode, chessArr, xy, num) => {
 export default (xy, chessArr) => {
   if(!xy) return debug('can not get piessLcation')
   let checkDirection = 8
-  debug(xy)
   const piessCode = chessArr[xy[1]][xy[0]]
   const arr = new Array(checkDirection).fill(true)
   const arrFraction = new Array(checkDirection).fill(0)
@@ -91,7 +90,6 @@ export default (xy, chessArr) => {
         // debug('checkDirection', checkDirection)
       }
     })
-    console.log(i)
   }
   return true
 }
