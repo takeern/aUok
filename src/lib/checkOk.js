@@ -3,43 +3,55 @@ const debug = require('debug')('ok:checkOk')
 // 数字九宫格控制方向 筛选
 const checkOne = (actionCode, chessArr, xy, num) => {
   let code
+  let x, y
+  const maxLength = chessArr.length
   switch(actionCode) {
   case(0): {
-    debug(chessArr, 'chess arr')
-    code = chessArr[xy[1] - num][xy[0] - num]
-    debug(code)
+    x = xy[0] - num
+    y = xy[1] - num
     break
   } 
   case(1): {
-    code = chessArr[xy[1] - num][xy[0]]
+    x = xy[0]
+    y = xy[1] - num
     break
   }
   case(2): {
-    code = chessArr[xy[1] - num][xy[0] + num]
+    x = xy[0] + num
+    y = xy[1] - num
     break
   }
   case(3): {
-    code = chessArr[xy[1]][xy[0] - num]
+    x = xy[0] - num
+    y = xy[1]
     break
   }
   case(4): {
-    code = chessArr[xy[1]][xy[0] + num]
+    x = xy[0] + num
+    y = xy[1]
     break
   }
   case(5): {
-    code = chessArr[xy[1] + num][xy[0] - num]
+    x = xy[0] - num
+    y = xy[1] + num
     break
   }
   case(6): {
-    code = chessArr[xy[1] + num][xy[0]]
+    x = xy[0]
+    y = xy[1] + num
     break
   }
   case(7): {
-    code = chessArr[xy[1] + num][xy[0] + num]
+    x = xy[0] + num
+    y = xy[1] + num
     break
   }
   default :return false
   }
+  if(x < 0 || y < 0 || x >= maxLength || y >= maxLength) {
+    return false
+  }
+  code = chessArr[y][x]
   return code 
 }
 

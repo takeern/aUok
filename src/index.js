@@ -1,6 +1,6 @@
 import init from './lib/init'
 import showPiess from './lib/showPiessPosition'
-const debug = require('debug')('ok:index')
+// const debug = require('debug')('ok:index')
 import checkOk from './lib/checkOk'
 
 
