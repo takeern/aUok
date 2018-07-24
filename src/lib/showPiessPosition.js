@@ -20,7 +20,6 @@ const clearPiess = (oldxy, ctx, distance, pieceLocation, maxLength) => {
   let sStart = oldxy[1] - distance/2 + 5
   let sEnd = oldxy[1] + distance/2 - 5
   ctx.fillStyle = 'rgb(213,176,146)'
-  debug('maxle', maxLength)
   ctx.fillRect(oldxy[0]-distance/2 + 5, oldxy[1]-distance/2 + 5, distance-10, distance-10)
   if(pieceLocation[0] == 0) {
     hStart = oldxy[0]
@@ -35,13 +34,15 @@ const clearPiess = (oldxy, ctx, distance, pieceLocation, maxLength) => {
     sEnd = oldxy[1]
   }
   ctx.beginPath()
-  ctx.strokeStyle = 'red'
+  ctx.strokeStyle = 'black'
   ctx.moveTo(hStart, oldxy[1])
   ctx.lineTo(hEnd, oldxy[1])
   ctx.moveTo(oldxy[0], sStart)
   ctx.lineTo(oldxy[0], sEnd)
   ctx.stroke()
 }
+
+
 
 export default ({ ctx, pieceLocation, newPieceLocation, beginPath, distance, chessArr, nowChessMan }, command) => {
   if(!ctx || !chessArr) return debug('初始化失败')
@@ -68,7 +69,6 @@ export default ({ ctx, pieceLocation, newPieceLocation, beginPath, distance, che
     const key = chessArr[pieceLocation[1]][pieceLocation[0]]
     if(key == 0) {
       const oldxy = xyToCav(pieceLocation, beginPath, distance)
-      debug('change move', pieceLocation)
       clearPiess(oldxy, ctx, distance, pieceLocation, chessArr.length)
       return newPieceLocation
     }
@@ -81,9 +81,11 @@ export default ({ ctx, pieceLocation, newPieceLocation, beginPath, distance, che
 
   //确定下棋
   if(command === 'input') {
+    debug('draw')
     color = nowChessMan === 'person'? 'white' : 'black'
     const xy = xyToCav(pieceLocation, beginPath, distance)
     drawArc (xy[0], xy[1], distance, ctx, color)
+    return pieceLocation
   }
   return null
 }
