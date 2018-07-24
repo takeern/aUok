@@ -1,7 +1,8 @@
 import init from './lib/init'
 import showPiess from './lib/showPiessPosition'
-// const debug = require('debug')('ok:index')
+const debug = require('debug')('ok:index')
 import checkOk from './lib/checkOk'
+import thunder from './lib/thunder'
 
 
 // @ctx canvas node
@@ -62,6 +63,8 @@ const keyPress = (e) => {
         key = checkOk(pieceLocation, chessArr)
         nowChessMan = nowChessMan === 'person'? 'otherPerson': 'person'
       }
+      const { x, y } = thunder(chessArr)
+      debug(x, y, 'shwo x y')
       //  如果胜利
       if(key) {
         let palyer

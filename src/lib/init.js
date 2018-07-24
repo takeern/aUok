@@ -27,7 +27,6 @@ export default (x = '15', personNum = 2) => {
   const nowChessMan = 'person'
   let chessArr = []
   const { width, height } = canvas
-  // chessArr.concat([ 0, 0, 0, 0 ])
   for(let i = 0; i < x; i++) chessArr.push(new Array(x).fill(0))
   ctx.fillStyle = 'rgb(213,176,146)'
   ctx.fillRect(0, 0, width, height)

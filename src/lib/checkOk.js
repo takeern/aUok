@@ -1,7 +1,7 @@
 const debug = require('debug')('ok:checkOk')
 
 // 数字九宫格控制方向 筛选
-const checkOne = (actionCode, chessArr, xy, num) => {
+export const checkOne = (actionCode, chessArr, xy, num) => {
   let code
   let x, y
   const maxLength = chessArr.length
@@ -64,15 +64,29 @@ export default (xy, chessArr) => {
   debug(xy)
   const piessCode = chessArr[xy[1]][xy[0]]
   const arr = new Array(checkDirection).fill(true)
+  const arrFraction = new Array(checkDirection).fill(0)
   for(let i = 1; i < 6; i++) {
-    if(checkDirection === 0) return false
+    if(checkDirection === 0) {
+      if(
+        arrFraction[0]+arrFraction[7] >= 4 ||
+        arrFraction[1]+arrFraction[6] >= 4 ||
+        arrFraction[2]+arrFraction[5] >= 4 ||
+        arrFraction[3]+arrFraction[4] >= 4 
+      ) {
+        return true
+      }
+      return false
+    }
     arr.map((item, index) => {
       if(item) {
         const code = checkOne(index, chessArr, xy, i)
         // debug(code)
+        
         if(code !== piessCode) {
           checkDirection--
           arr[index] = false
+        }else{
+          arrFraction[index] += 1
         }
         // debug('checkDirection', checkDirection)
       }
