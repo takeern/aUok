@@ -1,10 +1,8 @@
 const debug = require('debug')('ok:init')
-import showPiess from './showPiessPosition'
-import showPiessPosition from './showPiess\bPosition'
+import showPiessPosition from './showPiessPosition'
 // input
 // @x {int}
-// @y {int}
-// @person {int}
+// @personNum {int}
 // @thunder {int}
 // return
 // @ctx canvas node
@@ -14,7 +12,7 @@ import showPiessPosition from './showPiess\bPosition'
 
 // @beginPath {int}
 // @distance {int}
-export default (x = 15, person = 'person', thunderLev = 1) => { 
+export default (x = '15', personNum = 2) => { 
   const canvas = document.querySelector('canvas')
   if(!canvas) return debug ('canvas is undefined') 
   x = parseInt(x)
@@ -47,5 +45,5 @@ export default (x = 15, person = 'person', thunderLev = 1) => {
   }
   showPiessPosition({ ctx, pieceLocation, beginPath, distance, chessArr, nowChessMan }, 'init')
   debug ('init return value', ctx, pieceLocation, chessArr, nowChessMan)
-  return { ctx, pieceLocation, chessArr, nowChessMan, beginPath, distance }
+  return { ctx, pieceLocation, chessArr, nowChessMan, beginPath, distance, personNum }
 }
