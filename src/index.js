@@ -42,13 +42,13 @@ const onInput = () => {
     let key
     if(personNum === 1) {
       //确认输入 同步到参数
-      chessArr[pieceLocation[1]][pieceLocation[0]] = nowChessMan === 'person'? 1 : 2
+      chessArr[pieceLocation[1]][pieceLocation[0]] = nowChessMan === 'person'? 1 : 2// eslint-disable-line
       historyPath.push(pieceLocation)
       key = checkOk(pieceLocation, chessArr)
       nowChessMan = nowChessMan === 'person'? 'thunder': 'person'
       if(key) onWin()
     }else{
-      chessArr[pieceLocation[1]][pieceLocation[0]] = nowChessMan === 'person'? 1 : 2
+      chessArr[pieceLocation[1]][pieceLocation[0]] = nowChessMan === 'person'? 1 : 2// eslint-disable-line
       if(nowChessMan === 'person') {
         historyPath.push(pieceLocation)
       }else{
@@ -82,25 +82,30 @@ const keyPress = (e) => {
   const keyCode = e.which
   const [ ...newPieceLocation ] = pieceLocation
   let command = 'move'
+  const enter = 13
+  const left = 37
+  const top = 38
+  const right = 39
+  const bottom = 40
   switch(keyCode) {
-  case(37): {
+  case(left): { 
     //todo 触发向左
     newPieceLocation[0] -= 1
     break
   }
-  case(38): {
+  case(top): {
     newPieceLocation[1] -= 1
     break
   }
-  case(39): {
+  case(right): {
     newPieceLocation[0] += 1
     break
   }
-  case(40): {
+  case(bottom): {
     newPieceLocation[1] += 1
     break
   }
-  case(13): {
+  case(enter): {
     command = 'input'
     onInput()
     break

@@ -1,5 +1,11 @@
 # are u ok?
 
+### start
+```javascript
+npm i 
+npm run start
+```
+
 ### 做了什么？
 version 1.0 五子棋在线对战
 

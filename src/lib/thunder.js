@@ -110,16 +110,14 @@ const getScoreMap = (x, y, chessArr) => {
       }
     })
   }
-  // debug (arrFractionForBlack, 'location table balck RETURN')
-  // debug (arrFractionForWhite, 'location table white RETUN ')
 
   return score(arrFractionForBlack, arrFractionForWhite)
 }
 
 //该位置分数最终结果
 const score = (arrFractionForBlack, arrFractionForWhite) => {
-  const blackScore = thinking(arrFractionForBlack)
-  const whiteScore = thinking(arrFractionForWhite)
+  const blackScore = thinking(arrFractionForBlack, 'black')
+  const whiteScore = thinking(arrFractionForWhite, 'white')
   // debug(blackScore, ' 黑棋得分')
   // debug(whiteScore, ' bai棋得分')
   return blackScore + whiteScore
@@ -127,40 +125,60 @@ const score = (arrFractionForBlack, arrFractionForWhite) => {
 
 
 //制定得分规则
-const toolForFraction = (code, arrFraction) => {
+const toolForFraction = (code, arrFraction, color) => {
   const other = 7 - code
   const death = (arrFraction[code] - parseInt(arrFraction[code]) + arrFraction[other] - parseInt(arrFraction[other])) * 2
   let fraction = 0
   const key = parseInt(arrFraction[code]) + parseInt(arrFraction[other]) 
   // debug(death, key, '得分规则')
-  if(key >= 4) fraction += 100000
-  if(key === 3) {
-    if(death === 0) fraction += 10000
-    if(death === 1) fraction += 1001
-  }
-  if(key === 2) {
-    if(death === 0) fraction += 1000
-    if(death === 1) fraction += 101
-  }
-  if(key === 1) {
-    if(death === 0) fraction += 100
-    if(death === 1) fraction += 11
-  }
-  if(key === 0) {
-    if(death === 0) fraction += 10
-    if(death === 1) fraction += 1
+  if(color === 'black') {
+    if(key >= 4) fraction += 100000
+    if(key === 3) {
+      if(death === 0) fraction += 10000
+      if(death === 1) fraction += 1500
+    }
+    if(key === 2) {
+      if(death === 0) fraction += 1100
+      if(death === 1) fraction += 110
+    }
+    if(key === 1) {
+      if(death === 0) fraction += 110
+      if(death === 1) fraction += 11
+    }
+    if(key === 0) {
+      if(death === 0) fraction += 10
+      if(death === 1) fraction += 1
+    }
+  }else{
+    if(key >= 4) fraction += 100000
+    if(key === 3) {
+      if(death === 0) fraction += 10000
+      if(death === 1) fraction += 1000
+    }
+    if(key === 2) {
+      if(death === 0) fraction += 500
+      if(death === 1) fraction += 50
+    } if(key === 1) {
+      if(death === 0) fraction += 50
+      if(death === 1) fraction += 5
+    }
+    if(key === 0) {
+      if(death === 0) fraction += 10
+      if(death === 1) fraction += 1
+    }
   }
   return fraction
 }
 
 
 //通过分数图分析 该位置分数
-const thinking = (arrFraction) => {
+const thinking = (arrFraction, color) => {
   const arr = [ 0, 1, 2, 3 ]
   let fraction = 0
   arr.map((item) => {
-    fraction += toolForFraction(item, arrFraction)
+    fraction += toolForFraction(item, arrFraction, color)
   })
+  // debug(fraction)
   return fraction
 }
 
@@ -194,7 +212,7 @@ export default (chessArr) => {
       } 
     }
   }
-  // debug(fractionArr, '图表总分')
+  debug(fractionArr, '图表总分')
   debug(locationArr)
   return locationArr[Math.floor(Math.random() * locationArr.length)]
 }
